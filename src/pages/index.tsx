@@ -78,6 +78,26 @@ return(
         </div>
 
       </a>
+      <a href="#" className={styles.postContainer}>
+        <h1>
+          Criando um app CRA do zero
+        </h1>
+        <p>
+        Tudo sobre como criar a sua primeira aplicação utilizando Create React App
+        </p>
+        <div className={styles.info}>
+          <div className={styles.details}>
+            <FiCalendar />
+            <time>12 de marco de 2023</time>
+          </div>
+          <div className={styles.details}>
+            <FiUser />
+            <span>Marcos Fernades</span>
+          </div>
+
+        </div>
+
+      </a>
       <a href="#" className={styles.carregarPost}>
         Carregar mais posts
       </a>
