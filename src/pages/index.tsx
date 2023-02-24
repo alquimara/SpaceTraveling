@@ -83,7 +83,7 @@ return(
           Criando um app CRA do zero
         </h1>
         <p>
-        Tudo sobre como criar a sua primeira aplicação utilizando Create React App
+        Tudo sobre como criar a sua primeira aplicação utilizando Create React
         </p>
         <div className={styles.info}>
           <div className={styles.details}>
