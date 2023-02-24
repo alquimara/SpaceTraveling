@@ -1,0 +1,13 @@
+{
+  "_cts": {
+    "posts": {
+      "content": {},
+      "color": {
+        "content": "#ff57b2"
+      }
+    }
+  },
+  "slices": {
+    "PostSpace": {}
+  }
+}
