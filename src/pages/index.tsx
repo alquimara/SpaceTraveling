@@ -1,7 +1,6 @@
-//import { GetStaticProps } from 'next';
+
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-
 import Head from "next/head";
 import Header from "../components/Header";
 import { FiCalendar } from 'react-icons/fi'
@@ -10,6 +9,9 @@ import Prismic from '@prismicio/client'
 import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import { GetStaticProps } from 'next';
+import { useEffect, useState } from 'react';
+import { el } from 'date-fns/locale';
 
 
 interface Post {
@@ -32,9 +34,34 @@ interface HomeProps {
 }
 
 export default function Home(postPagination: PostPagination) {
-  console.log(postPagination)
 
-  const posts = postPagination.results
+
+
+  const[nextPage,setNextPage] = useState();
+  const[posts,setPosts]=useState(postPagination.results)
+  
+
+  useEffect(()=>{
+    fetch(postPagination.next_page).then(result => result.json()).then(data => setNextPage(data))
+  },[])
+  function nextPagePost(){
+    if(posts.length < nextPage.total_results_size){
+      fetch(nextPage.next_page).then(result => result.json()).then(data => setNextPage(data))
+      const nextPost = nextPage.results.map(postnext =>
+        {
+          return{
+            uid:postnext.uid,
+            first_publication_date:format(new Date(postnext.first_publication_date), 'dd MMM yyyy',{locale: ptBR}),
+            data:{
+              title:postnext.data.title,
+              subtitle:postnext.data.subtitle,
+              author:postnext.data.autor,
+            }
+          }
+        })
+        setPosts([...posts,...nextPost])
+    }
+  }
 return(
   <>
   <Header/>
@@ -43,7 +70,7 @@ return(
   </Head>
   <main>
     <div className={`${styles.post} ${commonStyles.maximumSize}`}>
-      {posts?.map((post) =>(
+      {posts.map((post) =>(
         <a href="#" className={styles.postContainer} key={post.uid}>
         <h1>
           {post.data.title}
@@ -63,6 +90,7 @@ return(
         </div>
       </a>
       ))}
+      <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a>
       
       </div>
   </main>
@@ -70,14 +98,13 @@ return(
 
 )
 }
-
-export const getStaticProps = async () => {
+export const getStaticProps:GetStaticProps = async () => {
   
   const prismic = getPrismicClient({});
   const postsResponse = await prismic.getByType('posts',{
-  pageSize:20
+  pageSize:2
   })
-  
+  console.log(postsResponse)
   const posts = postsResponse.results.map(post =>
     {
       return{
@@ -90,12 +117,12 @@ export const getStaticProps = async () => {
         }
       }
     })
-    console.log(posts)
-
+  
     const postsPagination = {
       next_page:postsResponse.next_page,
       results:posts
     }
+
   return {
     props:
       postsPagination
