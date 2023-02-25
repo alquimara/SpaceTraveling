@@ -35,8 +35,6 @@ interface HomeProps {
 
 export default function Home(postPagination: PostPagination) {
 
-
-
   const[nextPage,setNextPage] = useState();
   const[posts,setPosts]=useState(postPagination.results)
   
@@ -44,6 +42,7 @@ export default function Home(postPagination: PostPagination) {
   useEffect(()=>{
     fetch(postPagination.next_page).then(result => result.json()).then(data => setNextPage(data))
   },[])
+
   function nextPagePost(){
     if(posts.length < nextPage.total_results_size){
       fetch(nextPage.next_page).then(result => result.json()).then(data => setNextPage(data))
@@ -64,7 +63,6 @@ export default function Home(postPagination: PostPagination) {
   }
 return(
   <>
-  <Header/>
   <Head>
     <title>Home | SpaceTraveling</title>
   </Head>
@@ -90,8 +88,8 @@ return(
         </div>
       </a>
       ))}
-      <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a>
-      
+      {postPagination.next_page !=null &&  <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a>}
+  
       </div>
   </main>
   </>
