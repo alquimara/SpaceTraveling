@@ -12,7 +12,9 @@
     p{
         margin: 1rem 0 2rem 0;
     }
-   
+    // & + .postContainer{
+    //     margin-bottom: 3rem;
+    // }
 &:hover h1{
     color: var(--text-active);
 

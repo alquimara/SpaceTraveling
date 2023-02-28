@@ -37,11 +37,17 @@ export default function Home(postPagination: PostPagination) {
 
   const[nextPage,setNextPage] = useState(postPagination.next_page);
   const[posts,setPosts]=useState(postPagination.results)
+  
+
+  // useEffect(()=>{
+  //   fetch(postPagination.next_page).then(result => result.json()).then(data => setNextPage(data))
+  // },[])
 
   async function nextPagePost(){
     
-    const responseNextPage = await fetch(nextPage).then(result => result.json()).then(data => data)
-    if(nextPage !=null){
+     const responseNextPage = await fetch(nextPage).then(result => result.json()).then(data => data)
+     if(nextPage !=null){
+
       const nextPost = responseNextPage.results.map(postnext =>
         {
           return{
@@ -87,7 +93,7 @@ return(
         </div>
       </a>
       ))}
-      {nextPage !=null ? <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a> :null}
+      {nextPage !=null ? <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a> :<span>Não existe mais posts</span>}
       
   
       </div>

@@ -37,11 +37,17 @@ export default function Home(postPagination: PostPagination) {
 
   const[nextPage,setNextPage] = useState(postPagination.next_page);
   const[posts,setPosts]=useState(postPagination.results)
+  
+
+  // useEffect(()=>{
+  //   fetch(postPagination.next_page).then(result => result.json()).then(data => setNextPage(data))
+  // },[])
 
   async function nextPagePost(){
     
-    const responseNextPage = await fetch(nextPage).then(result => result.json()).then(data => data)
-    if(nextPage !=null){
+     const responseNextPage = await fetch(nextPage).then(result => result.json()).then(data => data)
+     if(nextPage !=null){
+
       const nextPost = responseNextPage.results.map(postnext =>
         {
           return{
@@ -57,6 +63,9 @@ export default function Home(postPagination: PostPagination) {
         setPosts([...posts,...nextPost])
         setNextPage(responseNextPage.next_page)
       }
+
+
+        console.log(nextPost)
   
 
   }
@@ -87,8 +96,7 @@ return(
         </div>
       </a>
       ))}
-      {nextPage !=null ? <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a> :null}
-      
+      <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a>
   
       </div>
   </main>
@@ -124,5 +132,8 @@ export const getStaticProps:GetStaticProps = async () => {
     props:
       postsPagination
   }
+}
+function data(value: any) {
+  throw new Error('Function not implemented.');
 }
 

@@ -1,7 +1,7 @@
 .postContainer{
     display: block;
     max-width: 37.5rem;
-    margin-bottom: 3rem;
+    padding-top: 1rem;
 
     h1{
         letter-spacing: -0.5px;
@@ -12,7 +12,9 @@
     p{
         margin: 1rem 0 2rem 0;
     }
-   
+    & + .postContainer{
+        margin-top: 3rem;
+    }
 &:hover h1{
     color: var(--text-active);
 

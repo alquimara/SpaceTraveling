@@ -37,28 +37,30 @@ export default function Home(postPagination: PostPagination) {
 
   const[nextPage,setNextPage] = useState(postPagination.next_page);
   const[posts,setPosts]=useState(postPagination.results)
+  
+
+  // useEffect(()=>{
+  //   fetch(postPagination.next_page).then(result => result.json()).then(data => setNextPage(data))
+  // },[])
 
   async function nextPagePost(){
     
-    const responseNextPage = await fetch(nextPage).then(result => result.json()).then(data => data)
-    if(nextPage !=null){
-      const nextPost = responseNextPage.results.map(postnext =>
-        {
-          return{
-            uid:postnext.uid,
-            first_publication_date:format(new Date(postnext.first_publication_date), 'dd MMM yyyy',{locale: ptBR}),
-            data:{
-              title:postnext.data.title,
-              subtitle:postnext.data.subtitle,
-              author:postnext.data.autor,
-            }
-          }
-        })
-        setPosts([...posts,...nextPost])
-        setNextPage(responseNextPage.next_page)
-      }
+     const response = await fetch(nextPage).then(result => result.json()).then(data => data)
+      // const nextPost = nextPage.results.map(postnext =>
+      //   {
+      //     return{
+      //       uid:postnext.uid,
+      //       first_publication_date:format(new Date(postnext.first_publication_date), 'dd MMM yyyy',{locale: ptBR}),
+      //       data:{
+      //         title:postnext.data.title,
+      //         subtitle:postnext.data.subtitle,
+      //         author:postnext.data.autor,
+      //       }
+      //     }
+      //   })
+      //   setPosts([...posts,...nextPost])
   
-
+    console.log(response)
   }
 return(
   <>
@@ -87,8 +89,7 @@ return(
         </div>
       </a>
       ))}
-      {nextPage !=null ? <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a> :null}
-      
+      <a href='#' onClick={nextPagePost} className={styles.carregarPost}>Carregar mais post</a>
   
       </div>
   </main>
@@ -124,5 +125,8 @@ export const getStaticProps:GetStaticProps = async () => {
     props:
       postsPagination
   }
+}
+function data(value: any) {
+  throw new Error('Function not implemented.');
 }
 
