@@ -1,0 +1,22 @@
+.maximumSize{
+    max-width: 1120px;
+    margin: 0 auto;
+}
+.info{
+    display: flex;
+    text-align: justify;
+    justify-content: justify;
+    gap: 1.625rem;
+    color:var(--text-info);
+}
+.details{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 0.5rem;
+
+    & svg{
+        width: 20px;
+        height: 20px;
+    }
+}

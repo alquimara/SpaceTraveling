@@ -1,0 +1,20 @@
+.banner{
+    width: 100%;
+    
+}
+.container{
+    margin:5rem auto 5rem auto;
+}
+.content{
+    margin-top: 4rem;
+
+    h2{
+        margin-bottom: 3rem;
+    }
+     p{
+        & + p{
+            margin-top: 2rem;
+        }
+     }
+   
+}
