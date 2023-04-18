@@ -50,7 +50,7 @@ export default function Home({ postsPagination }: HomeProps) {
           data: {
             title: postnext.data.title,
             subtitle: postnext.data.subtitle,
-            author: postnext.data.autor,
+            author: postnext.data.author,
           }
         }
       })
@@ -115,7 +115,7 @@ export const getStaticProps: GetStaticProps = async () => {
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,
-        author: post.data.autor,
+        author: post.data.author,
       }
     }
   })

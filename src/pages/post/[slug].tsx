@@ -46,7 +46,7 @@ export default function Post({ post }: PostProps) {
     return acc += heading + body
   }, 0)
 
-  const somaTempoLeitura = Math.round(qtdPalvrasContent / 200)
+  const somaTempoLeitura = Math.ceil(qtdPalvrasContent / 200)
 
   return !post ? (<p>Carregando ...</p>) : (
     <>
@@ -122,11 +122,11 @@ export const getStaticProps = async ({ params }) => {
     first_publication_date: response.first_publication_date,
     data: {
       title: response.data.title,
-      subtite: response.data.subtitle,
+      subtitle: response.data.subtitle,
       banner: {
         url: response.data.banner.url
       },
-      author: response.data.autor,
+      author: response.data.author,
       content: response.data.content
     }
   }
